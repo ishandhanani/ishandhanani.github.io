@@ -22,12 +22,10 @@ export const sharedPageComponents: SharedLayout = {
       GitHub: "https://github.com/ishandhanani",
       Twitter: "https://twitter.com/0xishand",
       LinkedIn: "https://www.linkedin.com/in/ishandhanani/",
-      // "RSS Feed": "/index.xml", // Add if you have RSS set up and want it in footer
+      Email: "mailto:me@ishan.rs",
     },
   }),
 }
-
-const excludeHomepageFilter = (page: QuartzPluginData) => page.slug !== "index"
 
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
