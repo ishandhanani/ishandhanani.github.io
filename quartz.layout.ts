@@ -1,22 +1,11 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import { QuartzPluginData } from "./quartz/plugins/vfile" // Import for filterFn type
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [Component.PageTitle(), Component.Spacer(), Component.Darkmode()],
-  afterBody: [
-    // Component.ConditionalRender({
-    //   component: Component.RecentNotes({
-    //     title: "", // Suppress the default title
-    //     limit: 3,
-    //     showTags: false, // You can set this to true if you want tags under recent posts
-    //     linkToMore: "/posts" as any, // Assumes articles will be in content/posts/
-    //   }),
-    //   condition: (page) => page.fileData.slug === "index",
-    // }), // Removed from homepage bottom, will be in left sidebar
-  ],
+  afterBody: [],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/ishandhanani",
@@ -55,6 +44,6 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
   ],
-  left: [Component.Explorer()],
+  left: [],
   right: [],
 }
