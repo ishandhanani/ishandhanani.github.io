@@ -5,7 +5,7 @@ import { QuartzPluginData } from "./quartz/plugins/vfile" // Import for filterFn
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [Component.PageTitle(), Component.Spacer(), Component.Search(), Component.Darkmode()],
+  header: [Component.PageTitle(), Component.Spacer(), Component.Darkmode()],
   afterBody: [
     // Component.ConditionalRender({
     //   component: Component.RecentNotes({
@@ -40,12 +40,13 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ContentMeta(),
   ],
   left: [
+    Component.Search(),
     Component.RecentNotes({
       title: "Recent Posts",
       limit: 5,
       showTags: false,
       linkToMore: "/posts" as any,
-      filter: excludeHomepageFilter, // Changed from filterFn to filter, and corrected filter logic
+      filter: excludeHomepageFilter,
     }),
   ],
   right: [
@@ -66,12 +67,13 @@ export const defaultListPageLayout: PageLayout = {
     Component.ArticleTitle(),
   ],
   left: [
+    Component.Search(),
     Component.RecentNotes({
       title: "Recent Posts",
       limit: 5,
       showTags: false,
       linkToMore: "/posts" as any,
-      filter: excludeHomepageFilter, // Changed from filterFn to filter, and corrected filter logic
+      filter: excludeHomepageFilter,
     }),
   ],
   right: [],

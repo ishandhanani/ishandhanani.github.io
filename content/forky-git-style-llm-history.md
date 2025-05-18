@@ -7,13 +7,6 @@ meta_image: https://bear-images.sfo2.cdn.digitaloceanspaces.com/ishan-1723480139
 
 TLDR - Programmatically fork an LLM chat to have a tangential conversation then efficiently merge it back into the main conversation to preserve information.
 
-## Table of Contents
-
-1. [Motivation](#motivation)
-2. [Tree Based Chat History](#understanding-chat-history)
-3. [Future Enhancements](#future-enhancements)
-4. [A New Approach to Chat History](#a-new-approach-to-chat-history)
-
 # Motivation
 
 This past week, Sonnet-3.5 and I found ourselves knee-deep in building a CLI for a new sort of cloud platform that I can't name just yet. Things were going great until we encountered some obscure Golang code-gen errors from the OpenAPI generator. Naturally, I started debugging with Sonnet in that same chat but as I started running out of available context, I decided to open a fresh chat and began working on the bug.
