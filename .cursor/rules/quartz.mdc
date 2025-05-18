@@ -1,0 +1,139 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Quartz v4 Customization Guide
+
+This guide summarizes how to customize a Quartz v4 website, based on explorations of a typical Quartz project structure.
+
+## 1. Content Authoring
+
+*   **Content Directory**: All Markdown content resides in `/content/`.
+*   **Homepage**: The main page is `content/index.md`.
+*   **Markdown Flavors**: Supports standard Markdown, GitHub Flavored Markdown (GFM), and Obsidian Flavored Markdown (wikilinks, callouts).
+*   **Frontmatter**: YAML frontmatter in `.md` files for metadata.
+    *   Key fields: `title`, `description`, `permalink`, `aliases`, `tags`, `draft: true` (for private pages), `date` (YYYY-MM-DD).
+*   **Recommended Editor**: Obsidian is good for managing links and previews.
+*   **Syncing Content**: `npx quartz sync` (if using GitHub for version control/hosting).
+
+## 2. Configuration (`quartz.config.ts`)
+
+This is the primary file for site-wide settings.
+
+*   **Structure**:
+    ```typescript
+    const config: QuartzConfig = {
+      configuration: { /* general settings */ },
+      plugins: { /* plugin settings */ },
+    }
+    ```
+*   **General Configuration (`configuration`)**:
+    *   `pageTitle`: Site title (e.g., "My Blog").
+    *   `baseUrl`: Crucial for deployment (e.g., `username.github.io/repo` or `custom.domain.com`). No `https://` or trailing slashes.
+    *   `theme`:
+        *   `typography`: Set `header`, `body`, `code` fonts (can use Google Fonts).
+            ```typescript
+            typography: {
+              header: "Schibsted Grotesk",
+              body: "Source Sans Pro",
+              code: "IBM Plex Mono",
+            },
+            ```
+        *   `colors`: Define color schemes for `lightMode` and `darkMode`.
+            ```typescript
+            colors: {
+              lightMode: {
+                light: "#faf8f8",        // Page background
+                lightgray: "#e5e5e5",    // Borders
+                gray: "#b8b8b8",         // Heavier borders, graph links
+                darkgray: "#4e4e4e",     // Body text
+                dark: "#2b2b2b",         // Header text, icons
+                secondary: "#284b63",    // Link color
+                tertiary: "#84a59d",     // Hover states
+                highlight: "rgba(143, 159, 169, 0.15)", // Internal link bg, code line highlight
+                textHighlight: "#fff23688", // Markdown ==highlight== bg
+              },
+              darkMode: { /* similar structure */ }
+            }
+            ```
+    *   `analytics`: Configure analytics providers.
+    *   `ignorePatterns`: Glob patterns for excluding content.
+*   **Plugins (`plugins`)**:
+    *   Types: `transformers` (modify content), `filters` (filter content), `emitters` (generate files/pages).
+    *   Order matters for transformers.
+    *   Add, remove, reorder, and configure plugins here.
+
+## 3. Layout Customization (`quartz.layout.ts`)
+
+Defines the structure of pages using `QuartzComponent`s.
+
+*   **Key Exports**:
+    *   `sharedPageComponents`: Layout elements common to all pages (e.g., `head`, `header`, `footer`).
+    *   `defaultContentPageLayout`: Layout for single content pages.
+    *   `defaultListPageLayout`: Layout for list pages (tags, folders).
+*   **Layout Sections**:
+    *   `head`: For `<meta>`, `<script>`, `<style>` (invisible).
+    *   `header`: Horizontal array of components at the top.
+    *   `beforeBody`: Vertical array before main content.
+    *   `pageBody`: Main content area (usually `Component.Content()`).
+    *   `afterBody`: Vertical array after main content.
+    *   `left`: Left sidebar (vertical on desktop/tablet, horizontal on mobile).
+    *   `right`: Right sidebar.
+    *   `footer`: Footer area.
+*   **Example: Removing Left Sidebar & Moving Elements to Header**
+    1.  In `sharedPageComponents`, populate the `header`:
+        ```typescript
+        header: [
+          Component.PageTitle(),
+          Component.Spacer(),
+          Component.Search(),
+          Component.Spacer(),
+          Component.Darkmode(),
+        ],
+        ```
+    2.  In `defaultContentPageLayout` and `defaultListPageLayout`, empty the `left` array:
+        ```typescript
+        left: [],
+        ```
+*   **Available Components**: See `./quartz/components/index.ts` or Quartz documentation for a list (e.g., `PageTitle`, `Search`, `Darkmode`, `Explorer`, `Graph`, `TableOfContents`, `Breadcrumbs`, `ArticleTitle`, `ContentMeta`, `TagList`, `Footer`, `Spacer`).
+
+## 4. Styling
+
+*   **Basic Styling**: Done via `theme` in `quartz.config.ts` (colors, fonts).
+*   **Advanced Styling**: Uses Sass.
+    *   Base styles: `quartz/styles/base.scss`.
+    *   Custom styles: Add to `quartz/styles/custom.scss`.
+    *   Component-specific styles might be in `quartz/components/styles/`.
+*   **Layout Breakpoints**: Configurable in `quartz/styles/variables.scss` (for `mobile`, `desktop` views).
+
+## 5. Build & Preview
+
+*   **Local Preview**: `npx quartz build --serve`
+    *   Starts a hot-reloading server (usually `http://localhost:8080`).
+*   **Production Build**: `npx quartz build`
+    *   Generates static files in the `public/` directory.
+*   **Build Options**:
+    *   `--directory`: Content folder (default: `content`).
+    *   `--output`: Output folder (default: `public`).
+
+## 6. Deployment
+
+*   Static files from `public/` can be hosted on any static hosting provider.
+*   **Key File**: `docs/hosting.md` in the Quartz repo (or official docs site) provides detailed guides for:
+    *   Cloudflare Pages
+    *   GitHub Pages (requires a GitHub Actions workflow, e.g., `quartz/.github/workflows/deploy.yml`)
+    *   Vercel (may need `vercel.json` for clean URLs)
+    *   Netlify
+    *   GitLab Pages
+    *   Self-hosting (Nginx, Apache, Caddy configurations)
+*   **Crucial Setting**: Ensure `baseUrl` in `quartz.config.ts` is correctly set for your deployment URL.
+*   **Sync command**: `npx quartz sync` can often be used to push changes to GitHub, triggering deployment if CI/CD is set up.
+
+## Key Files to Check First:
+
+*   `content/index.md` (Homepage content)
+*   `quartz.config.ts` (Site-wide settings, theme, plugins)
+*   `quartz.layout.ts` (Page structure, component placement)
+*   `quartz/styles/custom.scss` (Custom CSS/Sass rules)
+*   The official Quartz documentation: [https://quartz.jzhao.xyz/](https://quartz.jzhao.xyz/)

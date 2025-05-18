@@ -29,26 +29,26 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#fbf1c7", // Page background
+          lightgray: "#d5c4a1", // Borders
+          gray: "#bdae93", // Heavier borders, graph links
+          darkgray: "#3c3836", // Body text
+          dark: "#3c3836", // Header text, icons
+          secondary: "#076678", // Link color
+          tertiary: "#b57614", // Hover states
+          highlight: "rgba(7, 102, 120, 0.1)", // Internal link bg, code line highlight
+          textHighlight: "rgba(181, 118, 20, 0.25)", // Markdown ==highlight== bg
         },
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          light: "#282828", // Page background
+          lightgray: "#504945", // Borders
+          gray: "#7c6f64", // Heavier borders, graph links
+          darkgray: "#ebdbb2", // Body text
+          dark: "#ebdbb2", // Header text, icons
+          secondary: "#83a598", // Link color
+          tertiary: "#fabd2f", // Hover states
+          highlight: "rgba(131, 165, 152, 0.15)", // Internal link bg, code line highlight
+          textHighlight: "rgba(250, 189, 47, 0.3)", // Markdown ==highlight== bg
         },
       },
     },
