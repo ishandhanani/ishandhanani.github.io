@@ -136,4 +136,4 @@ Defines the structure of pages using `QuartzComponent`s.
 *   `quartz.config.ts` (Site-wide settings, theme, plugins)
 *   `quartz.layout.ts` (Page structure, component placement)
 *   `quartz/styles/custom.scss` (Custom CSS/Sass rules)
-*   The official Quartz documentation: [https://quartz.jzhao.xyz/](https://quartz.jzhao.xyz/)
+*   The official Quartz documentation: [https://quartz.jzhao.xyz/](mdc:https:/quartz.jzhao.xyz)
