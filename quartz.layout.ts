@@ -39,16 +39,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
   ],
-  left: [
-    Component.Search(),
-    Component.RecentNotes({
-      title: "Recent Posts",
-      limit: 5,
-      showTags: false,
-      linkToMore: "/posts" as any,
-      filter: excludeHomepageFilter,
-    }),
-  ],
+  left: [Component.Explorer()],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     Component.DesktopOnly(Component.TagList()),
@@ -66,15 +57,6 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
   ],
-  left: [
-    Component.Search(),
-    Component.RecentNotes({
-      title: "Recent Posts",
-      limit: 5,
-      showTags: false,
-      linkToMore: "/posts" as any,
-      filter: excludeHomepageFilter,
-    }),
-  ],
+  left: [Component.Explorer()],
   right: [],
 }
