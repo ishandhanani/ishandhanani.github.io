@@ -29,6 +29,7 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.Explorer({
       useSavedState: false,
+      folderClickBehavior: "collapse",
     }),
   ],
   right: [
@@ -51,6 +52,7 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.Explorer({
       useSavedState: false,
+      folderClickBehavior: "collapse",
     }),
   ],
   right: [],
