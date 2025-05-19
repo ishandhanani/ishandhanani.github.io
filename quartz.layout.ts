@@ -26,7 +26,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
   ],
-  left: [Component.Explorer()],
+  left: [
+    Component.Explorer({
+      useSavedState: false,
+    }),
+  ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     Component.DesktopOnly(Component.TagList()),
@@ -44,6 +48,10 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
   ],
-  left: [],
+  left: [
+    Component.Explorer({
+      useSavedState: false,
+    }),
+  ],
   right: [],
 }
