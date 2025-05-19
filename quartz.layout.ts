@@ -26,17 +26,13 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
   ],
-  left: [
-    Component.Explorer({
-      useSavedState: false,
-      folderClickBehavior: "collapse",
-    }),
-  ],
+  left: [],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     Component.DesktopOnly(Component.TagList()),
     Component.DesktopOnly(Component.Graph()),
     Component.DesktopOnly(Component.Backlinks()),
+    Component.DesktopOnly(Component.RecentNotes()),
   ],
 }
 
@@ -49,11 +45,6 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
   ],
-  left: [
-    Component.Explorer({
-      useSavedState: false,
-      folderClickBehavior: "collapse",
-    }),
-  ],
+  left: [],
   right: [],
 }

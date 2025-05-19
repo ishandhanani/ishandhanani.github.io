@@ -1,8 +1,9 @@
 ---
 title: Building Micrograd in Golang
 link: building-micrograd-in-golang
-published_date: 2024-07-08 07:33
-meta_image: https://bear-images.sfo2.cdn.digitaloceanspaces.com/ishan-1723562902.webp
+publishedDate: 2024-07-08 07:33
+tags:
+  - projects
 ---
 
 TLDR - Implementing Micrograd (a scalar-based autograd engine created by Andrej Karpathy) in Golang.

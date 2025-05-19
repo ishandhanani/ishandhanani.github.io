@@ -2,7 +2,8 @@
 title: Forky - Git-Style LLM Chat History
 link: forky-git-style-handling-on-chat-history
 published_date: 2024-08-11 22:18
-meta_image: https://bear-images.sfo2.cdn.digitaloceanspaces.com/ishan-1723480139.webp
+tags:
+  - projects
 ---
 
 TLDR - Programmatically fork an LLM chat to have a tangential conversation then efficiently merge it back into the main conversation to preserve information.

@@ -1,7 +1,9 @@
 ---
 title: The 30 minute Row
 link: the-30-min-row
-published_date: 2024-06-22 17:13
+date: 2024-06-22
+tags:
+  - life
 ---
 
 TLDR - The 30 minute row will make you strong and can teach you a lot about life and starting something new.
