@@ -3,6 +3,7 @@ title: "Flops Intensity Rooftline"
 date: 2025-05-24
 tags:
   - notes
+  - inference
 ---
 
 These are a set of notes based on this [blog post](https://jax-ml.github.io/scaling-book/roofline/)
