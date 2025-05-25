@@ -1,10 +1,12 @@
 ---
-title: "Flops Intensity Rooftline"
+title: "FLOPs and Intensity in FP8"
 date: 2025-05-24
 tags:
   - notes
   - inference
 ---
+
+Some notes on FLOPs and how to think about compute bound vs memory bound regimes using FP8 and H100 numbers.
 
 These are a set of notes based on this [blog post](https://jax-ml.github.io/scaling-book/roofline/)
 
