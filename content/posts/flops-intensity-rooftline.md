@@ -137,7 +137,7 @@ $$
 We can overall simplify this to the following in order to make some assumptions:
 
 $$
-\text{Arithmetic Intensity} = \frac{BDF}{BD + DF + BF}
+\text{Arithmetic Intensity} = \frac{2BDF}{BD + DF + BF}
 $$
 
 Say that `B` is our batch size. If we assume a small batch size, we can show that BD and FB are going to be much smaller than DF which will allow us to simplify that equation to just `B`.
@@ -214,7 +214,13 @@ assert np.all(res == X @ Y), "The results are not the same"
 T_math is now half because we are 2 GPUs.
 
 $$
-T_{math} = \frac{BDF}{2 \times 3958 \times 10e12 \text{ FLOPs/second}}
+T_{math} = \frac{2BDF}{2 \times 3958 \times 10e12 \text{ FLOPs/second}}
+$$
+
+Cancel the 2 and you're left with
+
+$$
+T_{math} = \frac{BDF}{3958 \times 10e12 \text{ FLOPs/second}}
 $$
 
 T_comms is the comms time between chips. We send a matrix sized `BF`
@@ -226,7 +232,7 @@ $$
 Looking at the arithmetic intensity:
 
 $$
-intensity = BDF/BF
+intensity = \frac{BDF}{BF} = D
 $$
 
 which is just D! Our H100 peak FP8 arithmetic intensity (for 2 H100s over NVLink BW) is is
