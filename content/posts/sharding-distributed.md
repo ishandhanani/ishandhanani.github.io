@@ -1,5 +1,5 @@
 ---
-title: "Sharing and NCCL Primatives"
+title: "Sharding and NCCL Primatives"
 date: 2025-05-25
 tags:
   - notes
