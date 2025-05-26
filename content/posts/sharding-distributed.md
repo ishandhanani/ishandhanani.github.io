@@ -188,3 +188,5 @@ Let's look at: $A[I_x, J] * B[J, K_y] \Rightarrow C[I_x, K_y]$. Assume a 2×2 me
 2. One input is sharded across contracted dimension. We typically `AllGather` the sharded input along the contracting dimension
 3. Both input matricies are sharded across contracted dimension. We multiply local shards then `AllReduce` the result.
 4. Both input matricies have a non-contracted dimension sharded along same axis. We cannot proceed without an initial `AllGather` of either input first.
+
+### Case 1
