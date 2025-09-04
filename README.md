@@ -16,3 +16,10 @@ Quartz v4 features a from-the-ground rewrite focusing on end-user extensibility 
     <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
   </a>
 </p>
+
+```bash
+git remote add upstream https://github.com/jackyzha0/quartz.git
+git config pull.rebase false
+git pull upstream v4
+git push
+```
