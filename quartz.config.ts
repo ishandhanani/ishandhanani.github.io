@@ -23,32 +23,32 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
-        code: "IBM Plex Mono",
+        header: "Cal Sans",
+        body: "Geist",
+        code: "Berkeley Mono",
       },
       colors: {
         lightMode: {
-          light: "#fbf1c7", // Page background
-          lightgray: "#d5c4a1", // Borders
-          gray: "#bdae93", // Heavier borders, graph links
-          darkgray: "#3c3836", // Body text
-          dark: "#3c3836", // Header text, icons
-          secondary: "#076678", // Link color
-          tertiary: "#b57614", // Hover states
-          highlight: "rgba(7, 102, 120, 0.1)", // Internal link bg, code line highlight
-          textHighlight: "rgba(181, 118, 20, 0.25)", // Markdown ==highlight== bg
+          light: "#fefefe", // Pure white
+          lightgray: "#f1f3f4", // Soft gray borders
+          gray: "#8b949e", // Neutral gray
+          darkgray: "#24292f", // Rich dark text
+          dark: "#1c2128", // Deep headers
+          secondary: "#0969da", // GitHub blue
+          tertiary: "#0550ae", // Darker blue hover
+          highlight: "rgba(9, 105, 218, 0.06)", // Subtle blue highlight
+          textHighlight: "#fff8c4", // Warm highlight
         },
         darkMode: {
-          light: "#282828", // Page background
-          lightgray: "#504945", // Borders
-          gray: "#7c6f64", // Heavier borders, graph links
-          darkgray: "#ebdbb2", // Body text
-          dark: "#ebdbb2", // Header text, icons
-          secondary: "#83a598", // Link color
-          tertiary: "#fabd2f", // Hover states
-          highlight: "rgba(131, 165, 152, 0.15)", // Internal link bg, code line highlight
-          textHighlight: "rgba(250, 189, 47, 0.3)", // Markdown ==highlight== bg
+          light: "#0d1117", // GitHub dark bg
+          lightgray: "#21262d", // Subtle borders
+          gray: "#656d76", // Muted elements
+          darkgray: "#e6edf3", // Clean white text
+          dark: "#f0f6fc", // Bright headers
+          secondary: "#58a6ff", // Bright blue links
+          tertiary: "#1f6feb", // Blue hover
+          highlight: "rgba(88, 166, 255, 0.1)", // Blue highlight
+          textHighlight: "#ffd60a", // Gold highlight
         },
       },
     },

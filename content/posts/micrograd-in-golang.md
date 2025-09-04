@@ -8,15 +8,6 @@ tags:
 
 TLDR - Implementing Micrograd (a scalar-based autograd engine created by Andrej Karpathy) in Golang.
 
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Basics of Neural Networks](#basics-of-neural-networks)
-3. [Graphs and Autograd](#graphs-and-autograd)
-4. [The `Value` Object](#the-value-object)
-5. [Building a Neural Network](#building-a-neural-network)
-6. [Training the Network](#training-the-network)
-
 # Introduction
 
 This past weekend, I decided to dive into Andrej Karpathy's Zero to Hero course. If you haven't heard about it, it's one of the best ways to learn about building neural networks from first principles. The first video is a [spelled out intro to neural networks and backpropogation](https://www.youtube.com/watch?v=VMj-3S1tku0). This video introduces Micrograd which is small python library that implements backpropogation and a small neural network library.

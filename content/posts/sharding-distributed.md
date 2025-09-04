@@ -1,5 +1,6 @@
 ---
 title: "Sharding and NCCL Primatives"
+draft: true
 date: 2025-05-25
 tags:
   - notes
