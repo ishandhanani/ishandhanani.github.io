@@ -8,7 +8,7 @@ tags:
   - home-manager
 ---
 
-TLDR - I moved from a homespun, complex and honestly quite fragile setup script system to a clean Nix Home Manager configuration and it's been relatively transformative.
+TLDR - I moved from a homespun, complex and honestly quite fragile setup script system to a clean Nix Home Manager configuration for my personal mac and ephemeral linux VMs.
 
 For years, I managed my environment with a mix of hand-rolled setup scripts and scattered package installs. It worked—barely. But as I spun up more machines (Linux VMs, SLURM clusters, random dev boxes) and layered on complexity, the approach got increasingly fragile.
 
@@ -156,6 +156,6 @@ which just worked...
 
 ## The Result
 
-This setup handles everything from my shell aliases to development tools in a declarative way. The entire environment is defined in ~200 lines of Nix across a few modules. Most importantly, it's reproducible—I can rebuild this exact environment on any machine or recover from failures without manual intervention.
+This setup handles everything from my shell aliases to development tools in a declarative way. The entire environment is defined in ~200 lines of Nix across a few modules.
 
 I'm considering extending this approach to manage development environments for specific projects with their own dependencies and shell configurations. At some point I'll look into `nix-darwin` for system-level macOS configurations, which will probably mean the inclusion of a `darwin/` folder.
