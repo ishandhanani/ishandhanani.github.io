@@ -43,6 +43,7 @@ export const defaultContentPageLayout: PageLayout = {
       title: "Recent Posts",
       limit: 3,
       linkToMore: "posts/" as SimpleSlug,
+      filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
     }),
   ],
   right: [
@@ -70,6 +71,7 @@ export const defaultListPageLayout: PageLayout = {
       title: "Recent Posts",
       limit: 3,
       linkToMore: "posts/" as SimpleSlug,
+      filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
     }),
   ],
   right: [],
