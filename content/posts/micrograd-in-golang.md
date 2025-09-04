@@ -1,7 +1,7 @@
 ---
 title: Building Micrograd in Golang
 link: building-micrograd-in-golang
-publishedDate: 2024-07-08 07:33
+date: 2024-07-08
 tags:
   - projects
 ---

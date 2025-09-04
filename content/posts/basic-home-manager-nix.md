@@ -2,29 +2,29 @@
 title: "A Minimal Nix Home-Manager Configuration"
 date: 2025-09-04
 tags:
-  - notes
   - nix
-  - personal
   - home-manager
 ---
 
 TLDR - I moved from a homespun, complex and honestly quite fragile setup script system to a clean Nix Home Manager configuration for my personal mac and ephemeral linux VMs.
 
-For years, I managed my environment with a mix of hand-rolled setup scripts and scattered package installs. It worked—barely. But as I spun up more machines (Linux VMs, SLURM clusters, random dev boxes) and layered on complexity, the approach got increasingly fragile.
+For a while, I managed my machines with some bash setup scripts and a handwritten package installer/manager. It worked in perfect conditions. But as I spun up more machines (Linux VMs, SLURM clusters, random dev boxes) and layered on complexity, the approach got increasingly fragile.
 
-Because I'm on vacation, I finally bit the bullet and tried Nix Home Manager. I’m not running NixOS; I use macOS on my laptop and a bunch of plain Linux machines. Home Manager has been a perfect middle ground: declarative configs, reproducible dotfiles, and just enough pragmatism to let me keep working the way I like. This blog post is primarily a collection of learnings and somewhat of a worklog. Much of the initial setup was written by claude code by taking my setup repo and asking it to write the most simple home manager configuration possible. From there I worked with cursor to slowly add more and more complexity until I could run `./install` and get a working setup.
+Because I'm on vacation, I finally bit the bullet, looked into the Nix ecosystem, and found home manager. Home Manager is the perfect middle ground: declarative configs, reproducible dotfiles, and just enough flexibility to let me keep working the way I like. This blog post is primarily a collection of learnings and somewhat of a worklog.
 
-You can find my configuration on [github](https://github.com/ishandhanani/dotfiles).
+Much of the initial setup was written by claude code by taking my setup repo and asking it to write the most simple home manager configuration possible. From there I worked with cursor to slowly add more and more complexity until I could run `./install` and get a working setup I was happy with.
+
+You can find my configuration on [here](https://github.com/ishandhanani/dotfiles).
 
 ## Understanding Nix, NixOS and Home Manager at a high level
 
-Before diving in, it’s worth clarifying the landscape because the terminology can get confusing.
+Before diving in, it’s worth clarifying the landscape (there's a lot going on in Nix world...).
 
-- **Nix** is the package manager and language. At its core, it’s a way to describe packages and configurations _declaratively_. Instead of saying “run this install command,” you describe what you want (e.g. `git`, `vim`), and Nix figures out how to build it in a reproducible way.
+- **Nix** is the package manager and language. At its core, it’s a way to describe packages and configurations _declaratively_. Instead of saying “run this install command,” you describe what you want (e.g. `git`, `vim`), and Nix figures out how to build it in a reproducible way. It primarily does this by pulling from a massive repository of packages called nixpkgs.
 
 - **NixOS** is a full Linux distribution built on Nix. It takes the declarative idea to the extreme: the kernel, services, users, even systemd units are all defined in Nix. You run `nixos-rebuild` and your whole system state updates atomically.
 
-- **Home Manager** is the piece I actually use. It brings the declarative style of Nix to _user-level environments_ (dotfiles, shells, editors, CLI tools), without requiring NixOS. You can run it on macOS or any Linux distro, and it just manages your home directory setup.
+- **Home Manager** is the piece I actually use. It brings the declarative style of Nix to _user-level environments_ (dotfiles, shells, editors, CLI tools), without requiring the full-blown NixOS. You can run it on macOS or any Linux distro, and it just manages your home directory setup. It is built on top of Nix as a module so it follows the same declarative principles.
 
 Here’s the mental model:
 
@@ -67,7 +67,7 @@ nix run home-manager/master -- switch --flake .#ishandhanani@macbook
 
 ### Making sure you pull from cache as much as possible
 
-The first time I tried building on my Mac, it tried to build LLVM and Apple SDKs from source which didn't seem right as I only wanted to install git and vim. The culprit? I was tracking nixos-unstable, which often doesn’t publish macOS binaries. Because I'm only using nix for packages (and not nixos in its entirety), I can directly point toward nixpkgs-unstable. In my `flake.nix`, I changed
+After getting the most minimal set of nix files ready to go, I tried to build my configuration which led to building LLVM and Apple SDKs from source.The culprit? I was tracking nixos-unstable, which often doesn’t publish macOS binaries. Because I'm only using nix for packages (and not nixos in its entirety), I can directly point toward nixpkgs-unstable. In my `flake.nix`, I changed
 
 ```diff
 - inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -106,8 +106,6 @@ Not everything I use is packaged in nixpkgs. For Python-based tools, I rely on u
 ```nix
 { config, lib, pkgs, ... }:
 
-# Tools that I want to specifically install with uvx
-
 let
   # List of uv tools you want installed
   uvxTools = [ "llm" ];
@@ -133,9 +131,9 @@ in
 
 When I switch configs on a new VM, all my CLI helpers land in `~/.local/bin` without me touching a thing.
 
-### Sourcing shell scripts to include helper functions
+### Bash Helper Functions
 
-This is another place where I decided to take a pragamtic approach. I've written a couple ai-powered shell scripts that I include in my zshrc. Instead of using Nix's weird string inclusion syntax, I just source them in my zshrc. Much cleaner and extensible in my opinion.
+This is another place where I decided to take a pragamtic approach. I've written a couple ai-powered shell scripts that I include in my zshrc. Instead of using Nix's weird string inclusion syntax, I just source them in my zshrc using the built in `lib.mkMerge` and zsh `initContent` statements. Much cleaner and extensible in my opinion.
 
 ```nix
     # Zsh-specific configuration
@@ -146,8 +144,8 @@ This is another place where I decided to take a pragamtic approach. I've written
     ];
 ```
 
-## The Result
+## The Result and Future Plans
 
 This setup handles everything from my shell aliases to development tools in a declarative way. The entire environment is defined in ~200 lines of Nix across a few modules.
 
-I'm considering extending this approach to manage development environments for specific projects with their own dependencies and shell configurations. At some point I'll look into `nix-darwin` for system-level macOS configurations, which will probably mean the inclusion of a `darwin/` folder.
+I'm considering extending this approach to manage development environments for specific projects with their own dependencies and shell configurations. At some point I'll look into `nix-darwin` for system-level macOS configurations, which will probably mean the inclusion of a `darwin/` folder. I don't think I'll go full NixOS but the rabbit hole is endless...
