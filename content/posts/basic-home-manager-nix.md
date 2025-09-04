@@ -1,5 +1,5 @@
 ---
-title: "From Setup Script Chaos to Nix Home Manager Serenity"
+title: "A Minimal Nix Home-Manager Configuration"
 date: 2025-09-04
 tags:
   - notes
@@ -13,6 +13,8 @@ TLDR - I moved from a homespun, complex and honestly quite fragile setup script 
 For years, I managed my environment with a mix of hand-rolled setup scripts and scattered package installs. It worked—barely. But as I spun up more machines (Linux VMs, SLURM clusters, random dev boxes) and layered on complexity, the approach got increasingly fragile.
 
 Because I'm on vacation, I finally bit the bullet and tried Nix Home Manager. I’m not running NixOS; I use macOS on my laptop and a bunch of plain Linux machines. Home Manager has been a perfect middle ground: declarative configs, reproducible dotfiles, and just enough pragmatism to let me keep working the way I like. This blog post is primarily a collection of learnings and somewhat of a worklog. Much of the initial setup was written by claude code by taking my setup repo and asking it to write the most simple home manager configuration possible. From there I worked with cursor to slowly add more and more complexity until I could run `./install` and get a working setup.
+
+You can find my configuration on [github](https://github.com/ishandhanani/dotfiles).
 
 ## Understanding Nix, NixOS and Home Manager at a high level
 
@@ -72,6 +74,8 @@ The first time I tried building on my Mac, it tried to build LLVM and Apple SDKs
 + inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 ```
 
+This was a dramatic improvement. Hours to seconds.
+
 ### Repo structure
 
 People have their nix configs setup in a variety of ways. For me, it made sense to keep things relatively modular (using home-manager `modules`) and simple. My current repo structure looks like this:
@@ -80,6 +84,7 @@ People have their nix configs setup in a variety of ways. For me, it made sense 
 dotfiles/
 ├─ flake.nix
 ├─ home.nix
+├─ home-linux.nix
 └─ modules/
    ├─ zsh.nix
    ├─ vim.nix
@@ -90,12 +95,9 @@ dotfiles/
 At a high level
 
 - `home.nix` → core configuration (username, home dir, basic packages)
+- `home-linux.nix` → core configuration for linux. Used for ephemeral linux VMs.
 - `modules/` → split by concern (zsh, vim, git)
 - `flake.nix` → pins nixpkgs/home-manager and wires everything together
-
-This was a dramatic improvement. Hours to seconds.
-
-The fix was simple: pin nixpkgs-unstable instead, which has much better Darwin cache coverage. Adding the nix-community cache also helps:
 
 ### Using uvx for non-nixpkgs packages
 
@@ -143,16 +145,6 @@ This is another place where I decided to take a pragamtic approach. I've written
       ''
     ];
 ```
-
-### Actually installing home-manager
-
-For some reason this was a bit of a pain to figure out (probably because I don't use all of NixOS). You can find the install directions [here](https://nix-community.github.io/home-manager/index.xhtml#ch-installation). After running all of the channel instructions, Claude told me to simply run
-
-```bash
-nix run home-manager/master -- switch --flake .#ishandhanani@macbook -b backup
-```
-
-which just worked...
 
 ## The Result
 
