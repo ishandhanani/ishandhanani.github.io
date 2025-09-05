@@ -39,12 +39,14 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.RecentNotes({
-      title: "Recent Posts",
-      limit: 3,
-      linkToMore: "posts/" as SimpleSlug,
-      filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Recent Posts",
+        limit: 3,
+        linkToMore: "posts/" as SimpleSlug,
+        filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
+      }),
+    ),
   ],
   right: [
     Component.Graph(),
@@ -67,12 +69,14 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.RecentNotes({
-      title: "Recent Posts",
-      limit: 3,
-      linkToMore: "posts/" as SimpleSlug,
-      filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Recent Posts",
+        limit: 3,
+        linkToMore: "posts/" as SimpleSlug,
+        filter: (page) => page.frontmatter?.title !== "Ishan Dhanani",
+      }),
+    ),
   ],
   right: [],
 }
