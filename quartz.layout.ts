@@ -78,5 +78,5 @@ export const defaultListPageLayout: PageLayout = {
       }),
     ),
   ],
-  right: [],
+  right: [Component.Graph()],
 }
