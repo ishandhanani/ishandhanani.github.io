@@ -1,6 +1,6 @@
 ---
 title: "Claude Code and OpenRouter"
-date: 2025-09-04
+date: 2025-09-08
 tags:
   - inference
   - notes
