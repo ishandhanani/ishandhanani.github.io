@@ -1,15 +1,16 @@
 ---
 title: "Claude Code and OpenRouter"
 date: 2025-09-04
-draft: true
 tags:
   - inference
   - notes
 ---
 
+TLDR - You can use any OpenRouter model with Claude Code via y-router, either locally or with their hosted version. Set environment variables to override the API endpoint and you're good to go.
+
 # How to use any OpenRouter model with Claude Code
 
-Claude code is currently one of the best CLI coding agents out there. Here's a quick guide on how to connect it with OpenRouter.
+Claude Code is an Anthropic product that uses the Anthropic API format. OpenRouter uses the OpenAI API format, so we need a router to convert the requests. Here's a straightforward guide on how to connect Claude Code with OpenRouter.
 
 ### Step 1: Use a router
 
@@ -29,7 +30,7 @@ docker compose up -d
 
 ### Step 2: Set the required environment variables
 
-You will need to set the following environment variables before you run the `claude` command
+You will need to set the following environment variables before you run the `claude` command. I'm using z-ai/glm-4.5-air for the small model since it's fast enough for most day-to-day tasks, and z-ai/glm-4.5 for when I need more reasoning power.
 
 ```bash
 # this is the local port that y-router is running on
@@ -67,7 +68,7 @@ And when you run `/model` you should see your OpenRouter model selected.
 
 ## Github Actions with OpenRouter
 
-Claude Code has a really neat set of default github actions that you can setup in your repo using `/install-github-actions`. You can easily adapt it to use the OpenRouter models by adding in the `env` section. Here's an example that uses the official Anthropic action with the `env` section set.
+Claude Code has a really solid set of default github actions that you can setup in your repo using `/install-github-actions`. You can easily adapt it to use the OpenRouter models by adding in the `env` section. Here's what I'm using in my projects:
 
 ```yaml
 ---
