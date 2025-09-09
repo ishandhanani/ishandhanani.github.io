@@ -4,6 +4,7 @@ date: 2025-09-08
 tags:
   - inference
   - notes
+  - projects
 ---
 
 TLDR - You can use any OpenRouter model with Claude Code via y-router, either locally or with their hosted version. Set environment variables to override the API endpoint and you're good to go.
