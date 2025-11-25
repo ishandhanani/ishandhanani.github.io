@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🚀",
+    pageTitle: "ishan",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -20,35 +20,35 @@ const config: QuartzConfig = {
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
-      fontOrigin: "googleFonts",
+      fontOrigin: "local",
       cdnCaching: true,
       typography: {
-        header: "Cal Sans",
-        body: "Geist",
-        code: "Berkeley Mono",
+        header: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        body: "Verdana, sans-serif",
+        code: "monospace",
       },
       colors: {
         lightMode: {
-          light: "#fefefe", // Pure white
-          lightgray: "#f1f3f4", // Soft gray borders
-          gray: "#8b949e", // Neutral gray
-          darkgray: "#24292f", // Rich dark text
-          dark: "#1c2128", // Deep headers
-          secondary: "#0969da", // GitHub blue
-          tertiary: "#0550ae", // Darker blue hover
-          highlight: "rgba(9, 105, 218, 0.06)", // Subtle blue highlight
-          textHighlight: "#fff8c4", // Warm highlight
+          light: "#120c0e",
+          lightgray: "#40363a",
+          gray: "#6b5f63",
+          darkgray: "#d9d8dc",
+          dark: "#d9d8dc",
+          secondary: "#eb99a1",
+          tertiary: "#e26f7a",
+          highlight: "rgba(235, 153, 161, 0.15)",
+          textHighlight: "#eb99a1",
         },
         darkMode: {
-          light: "#0d1117", // GitHub dark bg
-          lightgray: "#21262d", // Subtle borders
-          gray: "#656d76", // Muted elements
-          darkgray: "#e6edf3", // Clean white text
-          dark: "#f0f6fc", // Bright headers
-          secondary: "#58a6ff", // Bright blue links
-          tertiary: "#1f6feb", // Blue hover
-          highlight: "rgba(88, 166, 255, 0.1)", // Blue highlight
-          textHighlight: "#ffd60a", // Gold highlight
+          light: "#120c0e",
+          lightgray: "#40363a",
+          gray: "#6b5f63",
+          darkgray: "#d9d8dc",
+          dark: "#d9d8dc",
+          secondary: "#eb99a1",
+          tertiary: "#e26f7a",
+          highlight: "rgba(235, 153, 161, 0.15)",
+          textHighlight: "#eb99a1",
         },
       },
     },
@@ -88,8 +88,8 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
-      Plugin.CustomOgImages(),
+      // Disabled - can't use local fonts for OG images
+      // Plugin.CustomOgImages(),
     ],
   },
 }

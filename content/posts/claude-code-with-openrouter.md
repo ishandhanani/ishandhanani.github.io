@@ -2,7 +2,6 @@
 title: "Using OpenRouter with Claude Code"
 date: 2025-09-08
 tags:
-  - inference
   - notes
   - projects
 ---

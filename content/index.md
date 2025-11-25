@@ -1,10 +1,22 @@
 ---
-title: Ishan Dhanani
+title: ishan
 description: Exploring AI, systems design, personal growth, and everything in between.
 ---
 
-I am a senior deep learning algorithms engineer at <span style="color: #76B900">**NVIDIA**</span>. I primarily work on [Dynamo](https://github.com/ai-dynamo) - a high-throughput low-latency inference framework designed for serving generative AI and reasoning models in multi-node distributed environments.
+[home](/) · [writing](/posts)
 
-Previously, I was the cofounder of Agora Labs - a startup that built ML infrastructure on top of neo-cloud providers. We were acquired in February 2024 by [brev.dev](https://brev.dev) which in turn was acquired by NVIDIA in June 2024. Before that, I studied economics and statistics at Texas A&M University and had a brief stint at Columbia University before dropping out to work on Agora.
+currently **[inference](https://github.com/ai-dynamo/dynamo)** @ **nvidia**
 
-You can find some of my writings [here](/posts).
+previously
+
+- [brev.dev](https://x.com/NaderLikeLadder/status/1775647079836385779) (ai lead -> acq. by nvidia)
+- [agora labs](https://www.semafor.com/article/10/25/2023/the-ai-booms-chip-shortage-has-an-unlikely-hero-the-blockchain) (founder -> acq. by brev.dev)
+- [columbia university](https://www.cs.columbia.edu/tag/ishan-dhanani/) (dropped out for agora)
+- [sparkcognition](https://avathon.com/) (deep learning for industrial optimization)
+- [federal reserve](https://fred.stlouisfed.org/) (time series modeling)
+
+more of me
+
+- [twitter](https://twitter.com/0xishand)
+- [github](https://github.com/ishandhanani)
+- [linkedin](https://www.linkedin.com/in/ishandhanani/)

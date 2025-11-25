@@ -2,7 +2,47 @@
 
 // put your custom CSS here!
 
+// Increase base font size
+body {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+article {
+  max-width: 720px;
+}
+
 // Smaller font for tags
 a.internal.tag-link {
   font-size: 0.8rem;
+}
+
+// Smaller font for recent posts sidebar
+.recent-notes {
+  h3 {
+    font-size: 0.9rem;
+  }
+  
+  ul li .meta {
+    font-size: 0.75rem;
+  }
+  
+  ul li a {
+    font-size: 0.85rem;
+  }
+}
+
+// Hide external link icon
+a.external .external-icon {
+  display: none;
+}
+
+// Hide folder item count
+.content-meta {
+  display: none;
+}
+
+// Hide footer
+footer {
+  display: none;
 }
