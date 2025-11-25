@@ -4,7 +4,6 @@ date: 2025-11-24
 tags:
   - inference
   - notes
-draft: true
 ---
 
 **TLDR:** Prefill and decode are usually optimized separately. When you care about end to end performance in a disaggregated setup, you need a way to reconcile the difference in their observed throughput. Rate matching gives you a simple method to decide how many prefill and decode workers you need.
@@ -15,13 +14,13 @@ Disaggregated serving splits the request pipeline into two phases: the prefill p
 
 Whenever someon's looking to deploy a model using disaggregation, a common question that comes up is: **how do I know the right number of prefill workers and decode workers to provision**. Because optimal performance is so workload dependent, picking the right ratio is not always straightforward.
 
-The goal of this post is to give a simple, lightweight introduction to rate matching, and outline steps that you can take to figure out the right number of prefill and decode workers for your workload. 
+The goal of this post is to give a simple, lightweight introduction to rate matching, and outline steps that you can take to figure out the right number of prefill and decode workers for your workload.
 
-If you want a broader intro to disaggregation, this [doc](https://docs.nvidia.com/dynamo/latest/design_docs/disagg_serving.html) from the NVIDIA Dynamo repository is a good high level introduction. 
+If you want a broader intro to disaggregation, this [doc](https://docs.nvidia.com/dynamo/latest/design_docs/disagg_serving.html) from the NVIDIA Dynamo repository is a good high level introduction.
 
 # Gathering a baseline
 
-The first step to any sort of benchmarking is to gather a baseline. The simplest way to do this is to run your engine in aggregated mode. This will give you a sense of what your baseline performance is and you can use this as a starting point. Note that aggregation suffers from prefill injection latency which you will not face in a disaggregated setup. 
+The first step to any sort of benchmarking is to gather a baseline. The simplest way to do this is to run your engine in aggregated mode. This will give you a sense of what your baseline performance is and you can use this as a starting point. Note that aggregation suffers from prefill injection latency which you will not face in a disaggregated setup.
 
 # Isolating Prefill and Decode Performance
 
@@ -33,7 +32,7 @@ At the end of this step, you should have a set of configurations for peak prefil
 
 # Rate Matching
 
-Say you have the following numbers:
+Say you have the following numbers and constraints:
 
 - Your workload has an ISL of 1000 and OSL of 1000 tokens.
 - Your best prefill config uses dp-attention and expert parallelism of 8 (DEP8) and peaks at **13k TPS per GPU**.
@@ -46,19 +45,24 @@ Our first step is figuring out how many requests per second each prefill and dec
 - Decode server throughput: `9k * 48 GPUs = 432k TPS per server`  
   Which is about `432 requests per second` at OSL 1000.
 
-Immediatly we can see that decode is much faster than prefill and prefill is our bottleneck. In this case it makes sense to increase to 3 prefill servers in order to match the decode throughput closer. 
+Immediatly we can see that decode is much faster than prefill and prefill is our bottleneck. In this case it makes sense to increase to 3 prefill servers in order to match the decode throughput closer.
 
 You can also take logs of a benchmark where you run 1P vs 1D with your expected ISL and OSL and plot the input tok/s (prefill) vs output tok/s (decode) from each engine. Here's an example graph from SGLang:
 
 ![SGLang Rate Matching Example](../images/bad-rate-match.png)
 
-Here you can see that decode throughput is not able to keep up with the prefill throughput! Additionally, you can look at the quueuing on the decode side which shows that prefill is not able to "feed" the decode server with enough load to keep it busy!
+Here you can see that decode throughput is not able to keep up with the prefill throughput! Additionally, you can look at the queueing on the prefill side which shows that the single prefill server simply cannot process fast enough to keep the decode busy (which has 0 queued requests at almost all concurrencies)!
 
-![Decode Queue](../images/decode-queue.png)
+![Decode Queue](../images/prefill-queue.png)
 
-Now here's an example of a good rate match: 
+Here's an example of an improved rate match:
 
-![Good Rate Match](../images/good-rate-match.png)
+![Good Rate Match](../images/better-rate-match.png)
 
-Here you can see that the decode throughput is able to keep up with prefill throughput and the decode queue is much smaller!
+Here you can see that the decode throughput is much better and is able to start to keep up prefill throughput and the aggregate prefill queue is much smaller!
 
+![Aggregate Prefill Queue](../images/better-prefill-queue.png)
+
+# Ending thoughts
+
+Rate matching is not always a perfect science. Disaggregated serving is a complex problem and even following these steps can still be relatively "hand-wavy". There's other tools that like NVIDIA's [AI-Configurator](https://github.com/ai-dynamo/aiconfigurator/tree/main) which can be ran offline to figure out the right number of prefill and decode workers for your workload. But this is a good starting point to get a sense for what's possible and how to approach the problem.
